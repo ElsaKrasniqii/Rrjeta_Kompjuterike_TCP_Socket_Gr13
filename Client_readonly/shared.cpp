@@ -34,3 +34,23 @@ void ensureDataDir() {
     if (!fs::exists(DATA_DIR))
         fs::create_directory(DATA_DIR);
 }
+string readFile(const string& filename) {
+    ensureDataDir();
+    string path = string(DATA_DIR) + "/" + filename;
+    ifstream file(path, ios::binary);
+    if (!file)
+        return "Gabim: Fajlli nuk ekziston.";
+    stringstream buffer;
+    buffer << file.rdbuf();
+    return buffer.str();
+}
+
+// Fshin fajllin
+string deleteFile(const string& filename) {
+    ensureDataDir();
+    string path = string(DATA_DIR) + "/" + filename;
+    if (!fs::exists(path))
+        return "Gabim: Fajlli nuk ekziston.";
+    fs::remove(path);
+    return " Fajlli u fshi me sukses.";
+}
