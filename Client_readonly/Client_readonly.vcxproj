@@ -124,6 +124,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Client_readonly.cpp" />
+    <ClCompile Include="shared.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shared.h" />

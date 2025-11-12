@@ -124,6 +124,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Server.cpp" />
+    <ClCompile Include="shared.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shared.h" />
