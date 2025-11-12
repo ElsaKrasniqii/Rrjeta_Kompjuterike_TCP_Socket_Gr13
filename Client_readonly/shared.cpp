@@ -54,3 +54,28 @@ string deleteFile(const string& filename) {
     fs::remove(path);
     return " Fajlli u fshi me sukses.";
 }
+
+// Kthen informacionet e fajllit
+string infoFile(const string& filename) {
+    ensureDataDir();
+    string path = string(DATA_DIR) + "/" + filename;
+    if (!fs::exists(path))
+        return "Gabim: Fajlli nuk ekziston.";
+
+    auto fsize = fs::file_size(path);
+    auto ftime = fs::last_write_time(path);
+
+    auto sctp = chrono::time_point_cast<chrono::system_clock::duration>(
+        ftime - fs::file_time_type::clock::now() + chrono::system_clock::now()
+    );
+    time_t cftime = chrono::system_clock::to_time_t(sctp);
+
+    tm timeinfo{};
+    localtime_s(&timeinfo, &cftime);
+
+    stringstream ss;
+    ss << "Madhësia: " << fsize << " bajte\n";
+    ss << "Data e fundit e modifikimit: "
+        << put_time(&timeinfo, "%Y-%m-%d %H:%M:%S") << "\n";
+    return ss.str();
+}
