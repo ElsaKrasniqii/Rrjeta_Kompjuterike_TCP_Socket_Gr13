@@ -9,6 +9,7 @@
 #include <map>
 #include <chrono>
 #include "shared.h"
+#include "shared.cpp";
 
 #pragma comment(lib, "ws2_32.lib")
 
@@ -39,3 +40,22 @@ int main() {
         WSACleanup();
         return 1;
     }
+
+    srv.sin_family = AF_INET;
+    srv.sin_addr.s_addr = INADDR_ANY;
+    srv.sin_port = htons(PORT);
+
+    if (bind(sock, (sockaddr*)&srv, sizeof(srv)) == SOCKET_ERROR) {
+        cout << "bind() failed: " << WSAGetLastError() << "\n";
+        closesocket(sock);
+        WSACleanup();
+        return 1;
+    }
+
+
+    cout << "UDP server u nis ne portin: " << PORT << "\n";
+
+
+
+
+}
