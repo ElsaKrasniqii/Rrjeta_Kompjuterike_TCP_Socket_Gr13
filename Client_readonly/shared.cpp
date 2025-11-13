@@ -79,3 +79,10 @@ string infoFile(const string& filename) {
         << put_time(&timeinfo, "%Y-%m-%d %H:%M:%S") << "\n";
     return ss.str();
 }
+std::string uploadFile(const std::string& name, const std::string& content) {
+    std::ofstream file(DATA_DIR + std::string("/") + name);
+    if (!file) return "Gabim: nuk mund te krijohet fajlli.";
+
+    file << content;
+    return "Fajlli u ruajt me sukses.";
+}
