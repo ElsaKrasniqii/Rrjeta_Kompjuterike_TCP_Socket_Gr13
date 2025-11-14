@@ -13,3 +13,23 @@ using namespace std;
 
 #define SERVER_IP "127.0.0.1"  // IP e serverit
 
+int main() {
+    WSADATA wsa;
+    SOCKET s;
+    sockaddr_in srv{};
+    char buffer[BUFFER_SIZE];
+
+    if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0) {
+        cout << "WSAStartup failed.\n";
+        return 1;
+    }
+
+    s = socket(AF_INET, SOCK_DGRAM, 0);
+    if (s == INVALID_SOCKET) {
+        cout << "socket() failed.\n";
+        WSACleanup();
+        return 1;
+    }
+
+
+}
