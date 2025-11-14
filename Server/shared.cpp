@@ -87,3 +87,6 @@ std::string uploadFile(const std::string& name, const std::string& content) {
     file << content;
     return "Fajlli u ruajt me sukses.";
 }
+std::string downloadFile(const std::string& name) {
+    return readFile(name);
+}
