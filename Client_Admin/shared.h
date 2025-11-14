@@ -1,9 +1,10 @@
 #pragma once
 #include <string>
 #include <chrono>
+using namespace std;
 
 // --- Konstantat globale ---
-extern const std::string ADMIN_SECRET;
+extern const string ADMIN_SECRET;
 extern const char* DATA_DIR;
 
 extern const int PORT;
@@ -15,12 +16,12 @@ extern const int TIMEOUT_SECONDS;
 extern bool isAuthenticated; 
 
 struct ClientInfo {
-    std::string key, ip;
+    string key, ip;
     int port = 0;
     bool isAdmin = false;
     int messagesReceived = 0;
     int totalBytes = 0;
-    std::chrono::steady_clock::time_point lastActive;
+    chrono::steady_clock::time_point lastActive;
 };
 
 // --- Funksionet ndihmëse ---
