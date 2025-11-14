@@ -46,6 +46,14 @@ string readFile(const string& filename) {
     buffer << file.rdbuf();
     return buffer.str();
 }
+string listFiles() {
+    ensureDataDir();
+    stringstream ss;
+    for (const auto& entry : fs::directory_iterator(DATA_DIR)) {
+        ss << entry.path().filename().string() << "\n";
+    }
+    return ss.str().empty() ? "Asnjë fajll në data/." : ss.str();
+}
 
 // Fshin fajllin
 string deleteFile(const string& filename) {
@@ -81,6 +89,7 @@ string infoFile(const string& filename) {
         << put_time(&timeinfo, "%Y-%m-%d %H:%M:%S") << "\n";
     return ss.str();
 }
+
 string uploadFile(const string& name, const string& content) {
     ofstream file(DATA_DIR + string("/") + name);
     if (!file) return "Gabim: nuk mund te krijohet fajlli.";
@@ -88,36 +97,22 @@ string uploadFile(const string& name, const string& content) {
     file << content;
     return "Fajlli u ruajt me sukses.";
 }
+
 std::string downloadFile(const std::string& name) {
     return readFile(name);
 }
-std::string handleCommand(const std::string& cmd) {
 
-    if (cmd.starts_with("/list")) return listFiles();
-
-    if (cmd.starts_with("/read "))
-        return readFile(cmd.substr(6));
-
-    if (!isAuthenticated)
-        return "Gabim: Duhet /auth letmein";
-
-    if (cmd.starts_with("/delete "))
-        return deleteFile(cmd.substr(8));
-
-    if (cmd.starts_with("/search "))
-        return searchFiles(cmd.substr(8));
-
-    if (cmd.starts_with("/info "))
-        return fileInfo(cmd.substr(6));
-
-    if (cmd.starts_with("/upload ")) {
-        size_t pos = cmd.find('|');
-        if (pos == std::string::npos) return "Format i gabuar.";
-        return uploadFile(cmd.substr(8, pos - 8), cmd.substr(pos + 1));
+string searchFiles(const string& keyword) {
+    ensureDataDir();
+    stringstream ss;
+    for (const auto& entry : fs::directory_iterator(DATA_DIR)) {
+        ifstream file(entry.path(), ios::binary);
+        string content((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
+        if (content.find(keyword) != string::npos)
+            ss << entry.path().filename().string() << "\n";
     }
 
-    if (cmd.starts_with("/download "))
-        return downloadFile(cmd.substr(10));
-
-    return "Komande e panjohur!";
+    string result = ss.str();
+    return result.empty() ? "Asnjë fajll nuk përmban këtë fjalë." : result;
 }
+
