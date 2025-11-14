@@ -91,3 +91,33 @@ string uploadFile(const string& name, const string& content) {
 std::string downloadFile(const std::string& name) {
     return readFile(name);
 }
+std::string handleCommand(const std::string& cmd) {
+
+    if (cmd.starts_with("/list")) return listFiles();
+
+    if (cmd.starts_with("/read "))
+        return readFile(cmd.substr(6));
+
+    if (!isAuthenticated)
+        return "Gabim: Duhet /auth letmein";
+
+    if (cmd.starts_with("/delete "))
+        return deleteFile(cmd.substr(8));
+
+    if (cmd.starts_with("/search "))
+        return searchFiles(cmd.substr(8));
+
+    if (cmd.starts_with("/info "))
+        return fileInfo(cmd.substr(6));
+
+    if (cmd.starts_with("/upload ")) {
+        size_t pos = cmd.find('|');
+        if (pos == std::string::npos) return "Format i gabuar.";
+        return uploadFile(cmd.substr(8, pos - 8), cmd.substr(pos + 1));
+    }
+
+    if (cmd.starts_with("/download "))
+        return downloadFile(cmd.substr(10));
+
+    return "Komande e panjohur!";
+}
