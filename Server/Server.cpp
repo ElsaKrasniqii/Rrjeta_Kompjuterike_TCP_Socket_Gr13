@@ -20,12 +20,19 @@ string makeKey(const string& ip, int port) {
     return ip + ":" + to_string(port);
 }
 
+
 int main() {
     WSADATA wsa;
     SOCKET sock;
     sockaddr_in srv{}, cli{};
     int cliLen = sizeof(cli);
     char buffer[BUFFER_SIZE];
+
+
+    cout << "=============================\n";
+    cout << "       UDP SERVER STARTED     \n";
+    cout << "       Port: " << PORT << "\n";
+    cout << "=============================\n\n";
 
 
     if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0) {
@@ -53,12 +60,26 @@ int main() {
     }
 
 
-    cout << "UDP server u nis ne portin: " << PORT << "\n";
 
     map<string, ClientInfo> clients;
     ensureDataDir();
 
     while (true) {
+
+           auto now = chrono::steady_clock::now();
+        for (auto it = clients.begin(); it != clients.end(); ) {
+            long long diff = chrono::duration_cast<chrono::seconds>(
+                    now - it->second.lastActive
+            ).count();
+
+            if (diff > TIMEOUT_SECONDS) {
+                cout << "[TIMEOUT] Klienti u fshi: " << it->first << endl;
+                it = clients.erase(it);
+            } else {
+                ++it;
+            }
+        }
+
         memset(buffer, 0, BUFFER_SIZE);
 
         int got = recvfrom(sock, buffer, BUFFER_SIZE, 0, (sockaddr*)&cli, &cliLen);
