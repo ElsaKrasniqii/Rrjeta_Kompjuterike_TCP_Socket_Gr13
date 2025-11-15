@@ -32,4 +32,12 @@ int main() {
     }
 
 
+    srv.sin_family = AF_INET;
+    inet_pton(AF_INET, SERVER_IP, &srv.sin_addr);
+    srv.sin_port = htons(PORT);
+
+    cout << "Read-only client (UDP). Server: " << SERVER_IP << ":" << PORT << "\n";
+    cout << "Komanda të lejuara: /read <file>, /search <word>, /list\n";
+
+
 }
