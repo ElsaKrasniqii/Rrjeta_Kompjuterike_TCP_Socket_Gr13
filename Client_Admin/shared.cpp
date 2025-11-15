@@ -115,4 +115,47 @@ string searchFiles(const string& keyword) {
     string result = ss.str();
     return result.empty() ? "Asnjë fajll nuk përmban këtë fjalë." : result;
 }
+string handleCommand(const string& input) {
+    stringstream ss(input);
+    string cmd;
+    ss >> cmd;
 
+    // /auth <sekreti>
+    if (cmd == "/auth") {
+        string key;
+        ss >> key;
+        if (key == ADMIN_SECRET) {
+            isAuthenticated = true;
+            return "Autentikimi u realizua me sukses!";
+        }
+        return " Fjalëkalimi gabim.";
+    }
+
+    // Nëse nuk është autentikuar – lejo vetëm disa komanda
+    if (!isAuthenticated) {
+        if (cmd == "/read") { string f; ss >> f; return readFile(f); }
+        if (cmd == "/search") { string k; ss >> k; return searchFiles(k); }
+        if (cmd == "/list") return listFiles();
+        return "Gabim: Duhet të autentikoheni me /auth për komandat admin.";
+    }
+
+    // Komandat e lejuara për admin
+    if (cmd == "/list") return listFiles();
+    else if (cmd == "/read") { string f; ss >> f; return readFile(f); }
+    else if (cmd == "/delete") { string f; ss >> f; return deleteFile(f); }
+    else if (cmd == "/search") { string k; ss >> k; return searchFiles(k); }
+    else if (cmd == "/info") { string f; ss >> f; return infoFile(f); }
+    else if (cmd == "/upload") {
+        string data; getline(ss, data);
+        size_t sep = data.find('|');
+        if (sep == string::npos)
+            return "Sintaksë: /upload <filename>|<content>";
+        string fn = data.substr(0, sep);
+        string content = data.substr(sep + 1);
+        fn.erase(remove(fn.begin(), fn.end(), ' '), fn.end());
+        return uploadFile(fn, content);
+    }
+    else if (cmd == "/download") { string f; ss >> f; return downloadFile(f); }
+
+    return "Komandë e panjohur.";
+}
