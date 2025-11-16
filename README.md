@@ -41,11 +41,11 @@
  - Përmban logjikën qendrore të: menaxhimit të fajllave, leximit/shkrimit, kërkimit, informacioneve për fajllat, trajtimit të komandave që vijnë nga klientët.
 
 ##  Funksionaliteti Teknik
- -  Protokolli
+ -  Protokolli:
     Projekti funksionon me protokollin UDP:
-    Pa lidhje (connectionless)
-    Shpejtësi më e madhe
-    Nuk garanton dorëzimin e mesazhit (por e kompensojmë me logjikë kontrolli)
+    Pa lidhje (connectionless),
+    Shpejtësi më e madhe,
+    Nuk garanton dorëzimin e mesazhit (por e kompensojmë me logjikë kontrolli).
  -  Buffer
     BUFFER_SIZE = 4096
  -  Porti i Përdorur
