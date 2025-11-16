@@ -96,6 +96,8 @@ int main() {
        string key = makeKey(ip, port);
        string msg(buffer, got);
 
+       cout << "[COMMAND] From " << key << " -> " << msg << endl;
+
 
        auto& c = clients[key];
        c.key = key;
