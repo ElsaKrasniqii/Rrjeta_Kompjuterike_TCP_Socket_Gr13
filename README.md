@@ -54,18 +54,29 @@
     Çelësi i fshehtë admin:
     ADMIN_SECRET = "letmein"
 
-##Struktura e projektit
+## Struktura e projektit
 UDP_Project/
+
 │
+
 ├── server.cpp
+
 ├── clientAdmin.cpp
+
 ├── clientReadOnly.cpp
+
 ├── shared.cpp
+
 ├── shared.h
+
 │
+
 ├── data/            ← krijohet automatikisht
+
 ├── Downloads/       ← ku ruhen fajllat që shkarkohen
+
 │
+
 └── README.md
 
 ## Si të ekzekutohet projekti
