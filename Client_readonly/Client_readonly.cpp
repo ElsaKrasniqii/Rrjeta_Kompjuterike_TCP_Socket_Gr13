@@ -39,5 +39,26 @@ int main() {
     cout << "Read-only client (UDP). Server: " << SERVER_IP << ":" << PORT << "\n";
     cout << "Komanda te lejuara: /read <file>, /search <word>, /list\n";
 
+    while (true) {
+        cout << "\n> ";
+        string line;
+        getline(cin, line);
+        if (line == "exit" || line == "quit") break;
 
+        sendto(s, line.c_str(), (int)line.size(), 0, (sockaddr*)&srv, sizeof(srv));
+
+        sockaddr_in sender{};
+        int len = sizeof(sender);
+
+        memset(buffer, 0, BUFFER_SIZE);
+        int got = recvfrom(s, buffer, BUFFER_SIZE, 0, (sockaddr*)&sender, &len);
+
+        if (got > 0) {
+            cout << string(buffer, buffer + got) << "\n";
+        }
+    }
+
+    closesocket(s);
+    WSACleanup();
+    return 0;
 }
