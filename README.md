@@ -93,4 +93,4 @@ UDP_Project/
  - Fahrije Gjokiqi
  - Florjete Kuka
 
- - Universiteti / Lënda: RRJETAT KOMPJUTERIKE
+ - Universiteti i Prishtines / Lënda: Rrjeta Kompjuterike
