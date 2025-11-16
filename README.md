@@ -7,17 +7,17 @@
 1.  Serveri (server.cpp)
     - Serveri UDP pret komandat nga klientët dhe ekzekuton funksione të ndryshme të menaxhimit të fajllave.
     - Funksionet e mbështetura:
-      a.  Pa autentikim (read-only):
-        /list — liston të gjithë fajllat në folderin data/
-        /read <file> — lexon përmbajtjen e një fajlli
-        /search <keyword> — kërkon tekst brenda të gjithë fajllave
-      b. Me autentikim (admin):
-        /auth <sekreti> — aktivizon mënyrën admin
-        /delete <file> — fshin fajllin
-        /info <file> — tregon madhësinë dhe datën e modifikimit
-        /upload <filename>|<content> — ngarkon një fajll të ri
-        /download <filename> — shkarkon fajllin
-        /list / /read / /search — po ashtu të lejuara
+       - a.  Pa autentikim (read-only):
+         -  /list — liston të gjithë fajllat në folderin data/
+         - /read <file> — lexon përmbajtjen e një fajlli
+         - /search <keyword> — kërkon tekst brenda të gjithë fajllave
+       - b. Me autentikim (admin):
+        -  /auth <sekreti> — aktivizon mënyrën admin
+         - /delete <file> — fshin fajllin
+         - /info <file> — tregon madhësinë dhe datën e modifikimit
+         - /upload <filename>|<content> — ngarkon një fajll të ri
+         - /download <filename> — shkarkon fajllin
+         - /list / /read / /search — po ashtu të lejuara
   2. Klienti Admin (clientAdmin.cpp)
        - Ky klient ka akses të plotë në sistem, pas autentikimit:
        - Në fillim shkruan: /auth letmein
