@@ -12,12 +12,12 @@
          - /read <file> — lexon përmbajtjen e një fajlli
          - /search <keyword> — kërkon tekst brenda të gjithë fajllave
        - b. Me autentikim (admin):
-        -  /auth <sekreti> — aktivizon mënyrën admin
-         - /delete <file> — fshin fajllin
-         - /info <file> — tregon madhësinë dhe datën e modifikimit
-         - /upload <filename>|<content> — ngarkon një fajll të ri
-         - /download <filename> — shkarkon fajllin
-         - /list / /read / /search — po ashtu të lejuara
+           - /auth <sekreti> — aktivizon mënyrën admin
+           - /delete <file> — fshin fajllin
+           - /info <file> — tregon madhësinë dhe datën e modifikimit
+           - /upload <filename>|<content> — ngarkon një fajll të ri
+           - /download <filename> — shkarkon fajllin
+           - /list / /read / /search — po ashtu të lejuara
   2. Klienti Admin (clientAdmin.cpp)
        - Ky klient ka akses të plotë në sistem, pas autentikimit:
        - Në fillim shkruan: /auth letmein
