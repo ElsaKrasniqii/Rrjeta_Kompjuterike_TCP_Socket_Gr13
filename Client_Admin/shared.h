@@ -3,7 +3,6 @@
 #include <chrono>
 using namespace std;
 
-// --- Konstantat globale ---
 extern const string ADMIN_SECRET;
 extern const char* DATA_DIR;
 
@@ -12,7 +11,6 @@ extern const int TIMEOUT_SECONDS;
 
 #define BUFFER_SIZE 1024
 
-// --- Variabla globale ---
 extern bool isAuthenticated; 
 
 struct ClientInfo {
@@ -24,7 +22,6 @@ struct ClientInfo {
     chrono::steady_clock::time_point lastActive;
 };
 
-// --- Funksionet ndihmëse ---
 void ensureDataDir();
 std::string listFiles();
 std::string readFile(const std::string& filename);

@@ -18,7 +18,7 @@
     <ClCompile Include="Client_readonly.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="shared.cpp">
+    <ClCompile Include="..\Server\shared.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

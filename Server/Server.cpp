@@ -1,3 +1,6 @@
+#define _HAS_STD_BYTE 0
+#define _WINSOCK_DEPRECATED_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
@@ -9,7 +12,6 @@
 #include <map>
 #include <chrono>
 #include "shared.h"
-#include "shared.cpp";
 
 #pragma comment(lib, "ws2_32.lib")
 

@@ -1,4 +1,3 @@
-//shared.cpp 
 #include "shared.h"
 #include <filesystem>
 #include <fstream>
@@ -7,29 +6,19 @@
 #include <iomanip>
 #include <iostream>
 #include <chrono>
+#include <string>
 
+using namespace std;
 
+namespace fs = filesystem;
 
-namespace fs = std::filesystem;
+const string ADMIN_SECRET = "letmein";
+const char* DATA_DIR = "data";
+const int PORT = 12345;
+const int TIMEOUT_SECONDS = 60;
 
-// ===============================
-// --- KONSTANTAT GLOBALE ---
-// ===============================
-const string ADMIN_SECRET = "letmein";   // Fjalëkalimi për admin
-const char* DATA_DIR = "data";           // Folder ku ruhen fajllat
-const int PORT = 12345;                  // Porti i serverit
-const int TIMEOUT_SECONDS = 60;          // Timeout për klientët
-
-// ===============================
-// --- VARIABLA GLOBALE ---
-// ===============================
 bool isAuthenticated = false;
 
-// ===============================
-// --- FUNKSIONET NDIHMËSE ---
-// ===============================
-
-// Krijon folderin "data" nëse nuk ekziston
 void ensureDataDir() {
     if (!fs::exists(DATA_DIR))
         fs::create_directory(DATA_DIR);
@@ -45,17 +34,15 @@ string readFile(const string& filename) {
     buffer << file.rdbuf();
     return buffer.str();
 }
-
 string listFiles() {
     ensureDataDir();
     stringstream ss;
     for (const auto& entry : fs::directory_iterator(DATA_DIR)) {
         ss << entry.path().filename().string() << "\n";
     }
-    return ss.str().empty() ? "Asnjë fajll në data/." : ss.str();
+    return ss.str().empty() ? "Asnje fajll ne data/." : ss.str();
 }
 
-// Fshin fajllin
 string deleteFile(const string& filename) {
     ensureDataDir();
     string path = string(DATA_DIR) + "/" + filename;
@@ -65,7 +52,6 @@ string deleteFile(const string& filename) {
     return " Fajlli u fshi me sukses.";
 }
 
-// Kthen informacionet e fajllit
 string infoFile(const string& filename) {
     ensureDataDir();
     string path = string(DATA_DIR) + "/" + filename;
@@ -84,18 +70,20 @@ string infoFile(const string& filename) {
     localtime_s(&timeinfo, &cftime);
 
     stringstream ss;
-    ss << "Madhësia: " << fsize << " bajte\n";
+    ss << "Madhesia: " << fsize << " bajte\n";
     ss << "Data e fundit e modifikimit: "
         << put_time(&timeinfo, "%Y-%m-%d %H:%M:%S") << "\n";
     return ss.str();
 }
-std::string uploadFile(const std::string& name, const std::string& content) {
-    std::ofstream file(DATA_DIR + std::string("/") + name);
+
+string uploadFile(const string& name, const string& content) {
+    ofstream file(DATA_DIR + string("/") + name);
     if (!file) return "Gabim: nuk mund te krijohet fajlli.";
 
     file << content;
     return "Fajlli u ruajt me sukses.";
 }
+
 std::string downloadFile(const std::string& name) {
     return readFile(name);
 }
@@ -111,14 +99,13 @@ string searchFiles(const string& keyword) {
     }
 
     string result = ss.str();
-    return result.empty() ? "Asnjë fajll nuk përmban këtë fjalë." : result;
+    return result.empty() ? "Asnje fajll nuk permban kete fjale." : result;
 }
 string handleCommand(const string& input) {
     stringstream ss(input);
     string cmd;
     ss >> cmd;
 
-    // /auth <sekreti>
     if (cmd == "/auth") {
         string key;
         ss >> key;
@@ -126,18 +113,16 @@ string handleCommand(const string& input) {
             isAuthenticated = true;
             return "Autentikimi u realizua me sukses!";
         }
-        return " Fjalëkalimi gabim.";
+        return " Fjalekalimi gabim.";
     }
 
-    // Nëse nuk është autentikuar – lejo vetëm disa komanda
     if (!isAuthenticated) {
         if (cmd == "/read") { string f; ss >> f; return readFile(f); }
         if (cmd == "/search") { string k; ss >> k; return searchFiles(k); }
         if (cmd == "/list") return listFiles();
-        return "Gabim: Duhet të autentikoheni me /auth për komandat admin.";
+        return "Gabim: Duhet te autentikoheni me /auth per komandat admin.";
     }
 
-    // Komandat e lejuara për admin
     if (cmd == "/list") return listFiles();
     else if (cmd == "/read") { string f; ss >> f; return readFile(f); }
     else if (cmd == "/delete") { string f; ss >> f; return deleteFile(f); }
@@ -147,7 +132,7 @@ string handleCommand(const string& input) {
         string data; getline(ss, data);
         size_t sep = data.find('|');
         if (sep == string::npos)
-            return "Sintaksë: /upload <filename>|<content>";
+            return "Sintakse: /upload <filename>|<content>";
         string fn = data.substr(0, sep);
         string content = data.substr(sep + 1);
         fn.erase(remove(fn.begin(), fn.end(), ' '), fn.end());
@@ -155,5 +140,5 @@ string handleCommand(const string& input) {
     }
     else if (cmd == "/download") { string f; ss >> f; return downloadFile(f); }
 
-    return "Komandë e panjohur.";
+    return "Komande e panjohur.";
 }

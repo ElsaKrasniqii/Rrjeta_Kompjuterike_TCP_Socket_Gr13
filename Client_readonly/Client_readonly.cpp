@@ -1,3 +1,4 @@
+#define _HAS_STD_BYTE 0
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -11,7 +12,7 @@
 
 using namespace std;
 
-#define SERVER_IP "127.0.0.1"  // ketu vendoset IP-ja e cila do te perdoret ne momentin kur laptopi lidhet me rrjet hotspot
+#define SERVER_IP "127.0.0.1"  
 
 int main() {
     WSADATA wsa;
