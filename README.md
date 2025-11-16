@@ -42,17 +42,17 @@
 
 ##  Funksionaliteti Teknik
  -  Protokolli:
-    Projekti funksionon me protokollin UDP:
-    Pa lidhje (connectionless),
-    Shpejtësi më e madhe,
-    Nuk garanton dorëzimin e mesazhit (por e kompensojmë me logjikë kontrolli).
+     - Projekti funksionon me protokollin UDP:
+     - Pa lidhje (connectionless),
+     - Shpejtësi më e madhe,
+     - Nuk garanton dorëzimin e mesazhit (por e kompensojmë me logjikë kontrolli).
  -  Buffer
-    BUFFER_SIZE = 4096
+     - BUFFER_SIZE = 4096
  -  Porti i Përdorur
-    PORT = 12345
+     - PORT = 12345
  -  Autentikimi
-    Çelësi i fshehtë admin:
-    ADMIN_SECRET = "letmein"
+     - Çelësi i fshehtë admin:
+     - ADMIN_SECRET = "letmein"
 
 ## Struktura e projektit
 UDP_Project/
