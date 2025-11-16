@@ -43,7 +43,7 @@ int main() {
     cout << "Admin UDP client.\n";
     cout << "Use /auth " << ADMIN_SECRET << "\n";
     cout << "Use /upload <path>\n";
-    cout << "Use /download <filename>\n";
+    cout << "Use /info  <filename>\n";
     cout << "Use /download <filename>\n";
     cout << "Use /delete <filename>\n";
 
