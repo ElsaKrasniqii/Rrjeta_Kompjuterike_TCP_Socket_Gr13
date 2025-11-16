@@ -16,7 +16,7 @@
 using namespace std;
 namespace fs = std::filesystem;
 
-const char* SERVER_IP = "127.0.0.1";
+const char* SERVER_IP = "172.20.10.3";
 
 int main() {
 
