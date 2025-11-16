@@ -37,7 +37,7 @@ int main() {
     srv.sin_port = htons(PORT);
 
     cout << "Read-only client (UDP). Server: " << SERVER_IP << ":" << PORT << "\n";
-    cout << "Komanda të lejuara: /read <file>, /search <word>, /list\n";
+    cout << "Komanda te lejuara: /read <file>, /search <word>, /list\n";
 
 
 }
